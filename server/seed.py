@@ -37,42 +37,17 @@ with app.app_context():
         exercise10
     ])
 
-    # 10 WorkoutExercises examples
-    workoutExercises1 = WorkoutExercises(date='2026-04-01', duration_minutes=20, notes='Light back workout')
-    workoutExercises2 = WorkoutExercises(date='2026-04-02', duration_minutes=25, notes='Chest and arms')
-    workoutExercises3 = WorkoutExercises(date='2026-04-03', duration_minutes=30, notes='Leg day')
-    workoutExercises4 = WorkoutExercises(date='2026-04-04', duration_minutes=45, notes='Heavy chest workout')
-    workoutExercises5 = WorkoutExercises(date='2026-04-05', duration_minutes=50, notes='Deadlift focus')
-    workoutExercises6 = WorkoutExercises(date='2026-04-06', duration_minutes=15, notes='Core training')
-    workoutExercises7 = WorkoutExercises(date='2026-04-07', duration_minutes=35, notes='Arm pump workout')
-    workoutExercises8 = WorkoutExercises(date='2026-04-08', duration_minutes=30, notes='Lower body endurance')
-    workoutExercises9 = WorkoutExercises(date='2026-04-09', duration_minutes=40, notes='Shoulder strength')
-    workoutExercises10 = WorkoutExercises(date='2026-04-10', duration_minutes=20, notes='Cardio finisher')
-
-    db.session.add_all([
-        workoutExercises1,
-        workoutExercises2,
-        workoutExercises3,
-        workoutExercises4,
-        workoutExercises5,
-        workoutExercises6,
-        workoutExercises7,
-        workoutExercises8,
-        workoutExercises9,
-        workoutExercises10
-    ])
-
     # 10 Workout examples
-    workout1 = Workout(reps=10, sets=3, duration_seconds=60)
-    workout2 = Workout(reps=15, sets=4, duration_seconds=90)
-    workout3 = Workout(reps=12, sets=3, duration_seconds=75)
-    workout4 = Workout(reps=8, sets=5, duration_seconds=120)
-    workout5 = Workout(reps=6, sets=4, duration_seconds=150)
-    workout6 = Workout(reps=30, sets=3, duration_seconds=180)
-    workout7 = Workout(reps=12, sets=4, duration_seconds=80)
-    workout8 = Workout(reps=20, sets=3, duration_seconds=100)
-    workout9 = Workout(reps=10, sets=5, duration_seconds=110)
-    workout10 = Workout(reps=50, sets=2, duration_seconds=300)
+    workout1 = Workout(date=date(2026, 4, 1), duration_minutes=20, notes='Light back workout')
+    workout2 = Workout(date=date(2026, 4, 2), duration_minutes=25, notes='Chest and arms')
+    workout3 = Workout(date=date(2026, 4, 3), duration_minutes=30, notes='Leg day')
+    workout4 = Workout(date=date(2026, 4, 4), duration_minutes=45, notes='Heavy chest workout')
+    workout5 = Workout(date=date(2026, 4, 5), duration_minutes=50, notes='Deadlift focus')
+    workout6 = Workout(date=date(2026, 4, 6), duration_minutes=15, notes='Core training')
+    workout7 = Workout(date=date(2026, 4, 7), duration_minutes=35, notes='Arm pump workout')
+    workout8 = Workout(date=date(2026, 4, 8), duration_minutes=30, notes='Lower body endurance')
+    workout9 = Workout(date=date(2026, 4, 9), duration_minutes=40, notes='Shoulder strength')
+    workout10 = Workout(date=date(2026, 4, 10), duration_minutes=20, notes='Cardio finisher')
 
     db.session.add_all([
         workout1,
@@ -85,6 +60,100 @@ with app.app_context():
         workout8,
         workout9,
         workout10
+    ])
+
+    # 10 WorkoutExercises examples
+    workoutExercises1 = WorkoutExercises(
+        workout=workout1,
+        exercise=exercise1,
+        reps=10,
+        sets=3,
+        duration_seconds=60
+    )
+
+    workoutExercises2 = WorkoutExercises(
+        workout=workout2,
+        exercise=exercise2,
+        reps=15,
+        sets=4,
+        duration_seconds=90
+    )
+
+    workoutExercises3 = WorkoutExercises(
+        workout=workout3,
+        exercise=exercise3,
+        reps=12,
+        sets=3,
+        duration_seconds=75
+    )
+
+    workoutExercises4 = WorkoutExercises(
+        workout=workout4,
+        exercise=exercise4,
+        reps=8,
+        sets=5,
+        duration_seconds=120
+    )
+
+    workoutExercises5 = WorkoutExercises(
+        workout=workout5,
+        exercise=exercise5,
+        reps=6,
+        sets=4,
+        duration_seconds=150
+    )
+
+    workoutExercises6 = WorkoutExercises(
+        workout=workout6,
+        exercise=exercise6,
+        reps=30,
+        sets=3,
+        duration_seconds=180
+    )
+
+    workoutExercises7 = WorkoutExercises(
+        workout=workout7,
+        exercise=exercise7,
+        reps=12,
+        sets=4,
+        duration_seconds=80
+    )
+
+    workoutExercises8 = WorkoutExercises(
+        workout=workout8,
+        exercise=exercise8,
+        reps=20,
+        sets=3,
+        duration_seconds=100
+    )
+
+    workoutExercises9 = WorkoutExercises(
+        workout=workout9,
+        exercise=exercise9,
+        reps=10,
+        sets=5,
+        duration_seconds=110
+    )
+
+    workoutExercises10 = WorkoutExercises(
+        workout=workout10,
+        exercise=exercise10,
+        reps=50,
+        sets=2,
+        duration_seconds=300
+    )
+
+    db.session.add_all([
+        workoutExercises1,
+        workoutExercises2,
+        workoutExercises3,
+        workoutExercises4,
+        workoutExercises5,
+        workoutExercises6,
+        workoutExercises7,
+        workoutExercises8,
+        workoutExercises9,
+        workoutExercises10
     ])
 
     db.session.commit()

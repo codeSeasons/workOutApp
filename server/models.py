@@ -43,9 +43,9 @@ class Workout(db.Model):
     __tablename__ = "workouts"
 
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date)
+    date = db.Column(db.String)
     duration_minutes = db.Column(db.Integer)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.String)
 
     # Workout has many WorkoutExercises
     workout_exercises = db.relationship(

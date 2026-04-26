@@ -15,41 +15,76 @@ db = SQLAlchemy(metadata=metadata)
 # Define Models here
 
 class Exercise(db.Model):
-    __tablename__='exercises'
+    __tablename__ = "exercises"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    category = db.Column(db.String)
     equipment_needed = db.Column(db.Boolean)
 
+    # Exercise has many WorkoutExercises
+    workout_exercises = db.relationship(
+        "WorkoutExercises",
+        back_populates="exercise"
+    )
+
+    # Exercise has many Workouts through WorkoutExercises
+    workouts = db.relationship(
+        "Workout",
+        secondary="workout_exercises",
+        back_populates="exercises",
+        viewonly=True
+    )
 
     def __repr__(self):
-        return f"<Exercise {self.id}, {self.name}, {self.equipment_needed}>"
-    
-
+        return f"<Exercise {self.id}: {self.name}>"
 
 class Workout(db.Model):
-    __tablename__='workouts'
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String) #probably wrong, use date import?
-    duration_minutes = db.Column(db.integer)
-    notes = db.Column(db.String)
+    __tablename__ = "workouts"
 
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    duration_minutes = db.Column(db.Integer)
+    notes = db.Column(db.Text)
+
+    # Workout has many WorkoutExercises
+    workout_exercises = db.relationship(
+        "WorkoutExercises",
+        back_populates="workout"
+    )
+
+    # Workout has many Exercises through WorkoutExercises
+    exercises = db.relationship(
+        "Exercise",
+        secondary="workout_exercises",
+        back_populates="workouts",
+        viewonly=True
+    )
 
     def __repr__(self):
-        return f"<Workout {self.id}, {self.date}, {self.duration_minutes}, {self.notes}>"
-    
-
+        return f"<Workout {self.id}: {self.date}>"
 
 class WorkoutExercises(db.Model):
-    __tablename__='workout_exercises'
+    __tablename__ = "workout_exercises"
+
     id = db.Column(db.Integer, primary_key=True)
-    workout_id = db.Column(db.Integer, db.ForeignKey("workouut.id"))
-    exercise_id = db.Column(db.Integer, db.ForeignKey("exercise.id"))
+    workout_id = db.Column(db.Integer, db.ForeignKey("workouts.id"))
+    exercise_id = db.Column(db.Integer, db.ForeignKey("exercises.id"))
     reps = db.Column(db.Integer)
     sets = db.Column(db.Integer)
     duration_seconds = db.Column(db.Integer)
 
+    # WorkoutExercise belongs to a Workout
+    workout = db.relationship(
+        "Workout",
+        back_populates="workout_exercises"
+    )
+
+    # WorkoutExercise belongs to an Exercise
+    exercise = db.relationship(
+        "Exercise",
+        back_populates="workout_exercises"
+    )
+
     def __repr__(self):
-        return (
-               f"<WorkoutExercises {self.id}, Workout{self.workout_id}, " 
-               f"Exercise{self.exercise_id}, {self.reps}, {self.sets}, {self.duration_seconds}>"
-        )
+        return f"<WorkoutExercises workout_id={self.workout_id}, exercise_id={self.exercise_id}>"
